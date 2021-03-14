@@ -30,3 +30,13 @@ AcWing 算法基础课 六讲 笔记
 
 链接：https://www.acwing.com/activity/content/introduction/11/
 来源：AcWing
+
+## 参考资料：
+* [AcWing算法基础课笔记](https://www.acwing.com/file_system/file/content/whole/index/content/125854/)
+* [AcWing算法基础课笔记2](https://www.acwing.com/blog/content/3585/)
+* [AcWing算法基础课笔记3](https://www.acwing.com/blog/content/8949/)
+
+## 致谢
+* 感谢[AcWing](https://www.acwing.com/)提供的优质算法学习平台。
+* 感谢[shinezzz大佬](https://github.com/shinezzz/AcWingBasicAlgorithmCourse)提供的配套的优质算法笔记
+* 感谢[shinezzz大佬](https://github.com/shinezzz/LeetCode-Topic)提供的配套的优质LeetCode试题推荐以及题解
