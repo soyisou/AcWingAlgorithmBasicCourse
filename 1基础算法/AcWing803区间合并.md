@@ -45,8 +45,118 @@ $−10^9≤l_i≤r_i≤10^9$
 ```
 
 ### Solution
+```Java代码1
+import java.util.*;
 
-```java
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Pairs> segs = new ArrayList<>();
+        
+        while(n -- > 0){
+            int l = sc.nextInt(), r = sc.nextInt();
+            segs.add(new Pairs(l, r));
+        }
+        
+        int res = merge(segs);
+        
+        System.out.println(res);
+    }
+    
+    public static int merge(List<Pairs> segs){
+        List<Pairs> res = new ArrayList<>();
+        Collections.sort(segs);
+        int st = Integer.MIN_VALUE, ed = st;
+        for(var seg: segs){
+            if(ed < seg.first){
+                if(st != Integer.MIN_VALUE){
+                    res.add(new Pairs(st, ed));
+                }
+                st = seg.first;
+                ed = seg.second;
+            }else{
+                ed = Math.max(ed, seg.second);
+            }
+        }
+        if(st != Integer.MIN_VALUE){
+            res.add(new Pairs(st, ed));
+        }
+        return res.size();
+    }
+}
+
+class Pairs implements Comparable<Pairs>{
+    int first;
+    int second;
+    
+    public Pairs(int first, int second){
+        this.first = first;
+        this.second = second;
+    }
+    
+    @Override
+    public int compareTo(Pairs seg){
+        return this.first - seg.first;
+    }
+}
+```
+
+```Java代码2
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Pairs> segs = new ArrayList<>();
+        
+        while(n -- > 0){
+            int l = sc.nextInt(), r = sc.nextInt();
+            segs.add(new Pairs(l, r));
+        }
+        
+        int res = merge(segs);
+        
+        System.out.println(res);
+    }
+    
+    public static int merge(List<Pairs> segs){
+        List<Pairs> res = new ArrayList<>();
+        Collections.sort(segs, (seg1, seg2) -> {
+            return seg1.first - seg2.first;
+        });
+        int st = Integer.MIN_VALUE, ed = st;
+        for(var seg: segs){
+            if(ed < seg.first){
+                if(st != Integer.MIN_VALUE){
+                    res.add(new Pairs(st, ed));
+                }
+                st = seg.first;
+                ed = seg.second;
+            }else{
+                ed = Math.max(ed, seg.second);
+            }
+        }
+        if(st != Integer.MIN_VALUE){
+            res.add(new Pairs(st, ed));
+        }
+        return res.size();
+    }
+}
+
+class Pairs{
+    int first;
+    int second;
+    
+    public Pairs(int first, int second){
+        this.first = first;
+        this.second = second;
+    }
+}
+```
+
+```java代码3
 import java.util.*;
 import java.io.*;
 
@@ -96,7 +206,7 @@ public class Main{
 2. 更新右端点，取较大值`r = Math.max(a[i][1], r);`
 3. 不用 List，Pair，只用数组
 
-```java
+```java代码4
 import java.util.*;
 import java.io.*;
 
