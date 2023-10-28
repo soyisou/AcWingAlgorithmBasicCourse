@@ -102,7 +102,7 @@ class Main{
 ```
 
 ### Java Solution2
-```
+```Java
 import java.util.*;
 
 public class Main{
