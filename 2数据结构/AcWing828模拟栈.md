@@ -100,3 +100,36 @@ class Main{
     }
 }
 ```
+
+### Java Solution2
+```
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        
+        Stack<Integer> stk = new Stack<>();
+        
+        while(n -- > 0){
+            String op = sc.next();
+            if("push".equals(op)){
+                int x = sc.nextInt();
+                stk.push(x);
+            }else if("pop".equals(op)){
+                stk.pop();
+            }else if("empty".equals(op)){
+                if(stk.size() == 0){
+                    System.out.println("YES");
+                }else{
+                    System.out.println("NO");
+                }
+            }else{
+                int x = stk.peek();
+                System.out.println(x);
+            }
+        }
+    }
+}
+```
