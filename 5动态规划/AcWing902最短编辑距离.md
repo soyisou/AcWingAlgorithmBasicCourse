@@ -50,33 +50,46 @@ AGTAAGTAGGC
 ### Solution
 
 ```java
+/**
+ * dp数组的定义：dp[i][j]表示以i - 1结尾的串s1,变为以j - 1结尾的串s2所需要的最少操作次数.dp[s1.length()][s2.length()];
+ * 递推公式：
+ * if(s1.charAt(i - 1) == s2.charAt(j - 1)){
+ dp[i][j] = dp[i - 1][j - 1];
+ }else{
+ dp[i][j] = Math.min(Math.min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+ }
+ * 初始化：
+ *   dp[0][j] = j;
+ *   dp[i][0] = i;
+ */
+
+import java.io.*;
 import java.util.*;
 
-class Main{
+public class Main{
+    static final int N = 1010;
+    static int[][] dp = new int[N][N];
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        String a = sc.next();
         int m = sc.nextInt();
-        String b = sc.next();
-        // 状态表示：dp[i][j] 表示 a 字符串的前 i 个字符与 b 字符串的前 j 个字符的最短编辑距离
-        // 状态计算：就针对 a 字符串进行增，删，改
-        // 增：dp[i][j] = dp[i][j - 1] + 1;
-        // 删：dp[i][j] = dp[i - 1][j] + 1;
-        // 改：if(a[i] == b[j]) dp[i][j] = dp[i - 1][j - 1]
-        //     if(a[i] != b[j]) dp[i][j] = dp[i - 1][j - 1] + 1;
-        // 初始化：dp[0][j] = j, dp[i][0] = i;
-        int[][] dp =  new int[n + 10][m + 10];
-        for(int i = 0; i <= n; i++) dp[i][0] = i;
-        for(int j = 0; j <= m; j++) dp[0][j] = j;
-        for(int i = 1; i <= n; i++){
-            for(int j = 1; j <= m; j++){
-                dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + 1;
-                if(a.charAt(i - 1) == b.charAt(j - 1)) dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - 1]);
-                else dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - 1] + 1);
+        String s1 = sc.next();
+        int n = sc.nextInt();
+        String s2 = sc.next();
+
+        //注意m和n的边界也要初始化！
+        for(int i = 0; i <= m; i ++) dp[i][0] = i;
+        for(int j = 0; j <= n; j ++) dp[0][j] = j;
+
+        for(int i = 1; i <= m; i ++){
+            for(int j = 1; j <= n; j ++){
+                if(s1.charAt(i - 1) == s2.charAt(j - 1)){
+                    dp[i][j] = dp[i - 1][j - 1];
+                }else{
+                    dp[i][j] = Math.min(Math.min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+                }
             }
         }
-        System.out.println(dp[n][m]);
+        System.out.println(dp[m][n]);
     }
 }
 ```

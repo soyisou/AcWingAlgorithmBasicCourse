@@ -78,40 +78,76 @@
 
 **普通版**：
 
+初始化体积
 ```java
+import java.io.*;
 import java.util.*;
 
-class Main{
+public class Main{
+    static final int N = 1010;
+    static int[][] dp = new int[N][N];
+    static int[] v = new int[N];
+    static int[] w = new int[N];
     public static void main(String[] args){
-        // 输入数据
-        Scanner scan = new Scanner(System.in);
-        int N = scan.nextInt();
-        int V = scan.nextInt();
-
-        int[] v = new int[N + 10];
-        int[] w = new int[N + 10];
-        for(int i = 1; i <= N; i++){
-            v[i] = scan.nextInt();
-            w[i] = scan.nextInt();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt();
+        
+        for(int i = 0; i < n; i ++){
+            v[i] = sc.nextInt();
+            w[i] = sc.nextInt();
         }
-        scan.close();
-
-        // 开始dp
-        int[][] dp = new int[N + 10][V + 10];
-        for(int i = 1; i <= N; i++){
-            for(int j = 1; j <= V; j++){
-                // 放进去和不放进去取最大值
-                dp[i][j] = dp[i - 1][j];
-                if(j >= v[i])
-                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - v[i]] + w[i]);
-
+        
+        //初始化dp数组
+        for(int j = v[0]; j <= m; j ++) dp[0][j] = w[0];
+        
+        for(int i = 1; i < n; i ++){
+            for(int j = 1; j <= m; j ++){
+                if(v[i] > j) dp[i][j] = dp[i - 1][j];
+                else{
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - v[i]] + w[i]);
+                }
             }
         }
-        // int res = 0;
-        // for(int i = 0; i <= V; i++) res = Math.max(res, dp[N][i]);
-        // System.out.println(res);
-        // 或者
-        System.out.println(dp[N][V]);
+        System.out.println(dp[n - 1][m]);
+    }
+}
+```
+
+不用初始化体积（下标从1开始）
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt();
+        int[][] dp = new int[n + 10][m + 10];
+        int[] v = new int[n + 10];
+        int[] w = new int[n + 10];
+
+        for(int i = 1; i <= n; i ++){
+            v[i] = sc.nextInt();
+            w[i] = sc.nextInt();
+        }
+
+        for(int i = 1; i <= n; i ++){
+            for(int j = 1; j <= m; j ++){
+                dp[i][j] = dp[i - 1][j];
+                if(j >= v[i]){
+                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - v[i]] + w[i]);
+                }
+            }
+        }
+
+        //打印dp数组
+        // for(int i = 0; i <= n; i ++){
+        //     for(int j = 0; j <= m; j ++){
+        //         System.out.printf("%d ", dp[i][j]);
+        //     }
+        //     System.out.println();
+        // }
+        System.out.println(dp[n][m]);
     }
 }
 ```
